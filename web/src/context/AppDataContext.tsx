@@ -429,12 +429,12 @@ const starterChallenges: Challenge[] = [
 ]
 
 const defaultUiConfig: UiConfig = {
-  brandName: 'LIA',
+  brandName: 'MCQ Hub',
   topbarCtaLabel: 'Create Challenge',
   sidebarItems: [
     { key: 'home', label: 'Home', path: '/home', icon: 'home' },
     { key: 'library', label: 'Library', path: '/library', icon: 'library' },
-    { key: 'redemption', label: 'Redemption', path: '/redemption', icon: 'redemption' },
+    { key: 'redemption', label: 'Revise', path: '/redemption', icon: 'redemption' },
     {
       key: 'leaderboards',
       label: 'Leaderboards',
