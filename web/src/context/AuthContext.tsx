@@ -10,6 +10,7 @@ import type { ReactNode } from 'react'
 import type { Session, User as SupabaseAuthUser } from '@supabase/supabase-js'
 import type { Profile } from '../types/models'
 import { setSoundMuted } from '../utils/audioPreferences'
+import { getAuthCallbackUrl } from '../utils/authRedirect'
 import { ensureUserProfile, routeUserAfterAuth, toProfilePatch, updateUserProfile } from '../lib/profiles'
 import { supabase } from '../lib/supabase'
 
@@ -245,11 +246,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signUp = async ({ username, email, password }: { username: string; email: string; password: string }) => {
     const normalizedUsername = username.trim()
+    const redirectTo = getAuthCallbackUrl()
 
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
+        emailRedirectTo: redirectTo,
         data: {
           username: normalizedUsername,
         },
@@ -281,7 +284,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   const signInWithGoogle = async () => {
-    const redirectTo = `${window.location.origin}/auth/callback`
+    const redirectTo = getAuthCallbackUrl()
     debugAuthLog('google sign in click', { redirectTo })
 
     const { error } = await supabase.auth.signInWithOAuth({

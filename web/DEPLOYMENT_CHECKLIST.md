@@ -7,6 +7,7 @@
 - [ ] Reviewed IMPLEMENTATION_SUMMARY.md for integration approach
 - [ ] Supabase project is ready (project created, credentials set)
 - [ ] `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` env vars set
+- [ ] `VITE_APP_URL` env var set to production origin (for auth redirect fallback), e.g. `https://mcqhublw.vercel.app`
 
 ---
 
