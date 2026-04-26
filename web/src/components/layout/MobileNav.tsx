@@ -1,15 +1,29 @@
 import { House, Flame, Trophy, PlusSquare } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { useMemo } from 'react'
+import { useAppData } from '../../context/AppDataContext'
 
-const navItems = [
-  { path: '/home', label: 'Home', icon: House },
-  { path: '/redemption', label: 'Review', icon: Flame },
-  { path: '/leaderboards', label: 'Boards', icon: Trophy },
-  { path: '/create', label: 'Create', icon: PlusSquare },
-]
+const mobileNavOrder = ['home', 'redemption', 'leaderboards', 'create'] as const
+
+const iconMap = {
+  home: House,
+  redemption: Flame,
+  leaderboards: Trophy,
+  create: PlusSquare,
+} as const
 
 export function MobileNav() {
+  const { uiConfig } = useAppData()
+
+  const navItems = useMemo(
+    () =>
+      mobileNavOrder
+        .map((key) => uiConfig.sidebarItems.find((item) => item.key === key))
+        .filter((item): item is NonNullable<typeof item> => Boolean(item)),
+    [uiConfig.sidebarItems],
+  )
+
   return (
     <motion.nav
       initial={{ y: 20, opacity: 0 }}
@@ -18,10 +32,10 @@ export function MobileNav() {
       className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-surface border-t border-outline-variant/20 grid grid-cols-4"
     >
       {navItems.map((item) => {
-        const Icon = item.icon
+        const Icon = iconMap[item.key as keyof typeof iconMap] ?? House
         return (
           <NavLink
-            key={item.path}
+            key={item.key}
             to={item.path}
             className={({ isActive }) =>
               `py-2.5 text-[11px] font-medium flex flex-col items-center gap-1 ${

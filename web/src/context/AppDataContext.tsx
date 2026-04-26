@@ -38,6 +38,8 @@ import {
 import { calculateEstimatedMinutes, calculateQuestionCount } from '../utils/challengeEstimation'
 
 const UI_KEY = 'lia-ui-config'
+const UI_VERSION_KEY = 'lia-ui-config-version'
+const UI_CONFIG_VERSION = 2
 const LEGACY_CHALLENGES_KEY = 'lia-challenges'
 const LEADERBOARD_KEY = 'lia-leaderboard'
 const CHALLENGE_LEADERBOARDS_KEY = 'lia-leaderboards'
@@ -474,6 +476,15 @@ const ensureLibrarySidebarItem = (config: UiConfig): UiConfig => {
   }
 }
 
+const getInitialUiConfig = (): UiConfig => {
+  const savedVersion = storage.get<number>(UI_VERSION_KEY, 0)
+  if (savedVersion !== UI_CONFIG_VERSION) {
+    return ensureLibrarySidebarItem(defaultUiConfig)
+  }
+
+  return ensureLibrarySidebarItem(storage.get(UI_KEY, defaultUiConfig))
+}
+
 type RecordPayload = {
   userId: string
   userName: string
@@ -562,9 +573,7 @@ const normalizeChallenge = (challenge: Challenge): Challenge => {
 
 export function AppDataProvider({ children }: { children: ReactNode }) {
   const { currentUser, authLoading } = useAuth()
-  const [uiConfig, setUiConfig] = useState<UiConfig>(() =>
-    ensureLibrarySidebarItem(storage.get(UI_KEY, defaultUiConfig)),
-  )
+  const [uiConfig, setUiConfig] = useState<UiConfig>(getInitialUiConfig)
   const [scoringConfig] = useState<ScoringConfig>(() =>
     storage.get(SCORING_KEY, defaultScoringConfig),
   )
@@ -600,6 +609,7 @@ export function AppDataProvider({ children }: { children: ReactNode }) {
   }
 
   useEffect(() => storage.set(UI_KEY, uiConfig), [uiConfig])
+  useEffect(() => storage.set(UI_VERSION_KEY, UI_CONFIG_VERSION), [])
   useEffect(() => storage.set(SCORING_KEY, scoringConfig), [scoringConfig])
   useEffect(() => storage.set(LEADERBOARD_KEY, leaderboard), [leaderboard])
   useEffect(() => storage.set(RUNS_KEY, quizRuns), [quizRuns])
