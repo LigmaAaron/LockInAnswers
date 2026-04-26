@@ -15,12 +15,6 @@ const REDEMPTION_REASON_BY_TYPE: Record<RedemptionItemType, string> = {
   wrong: 'You got this wrong',
   low_conf_correct: "You weren't sure about this",
 }
-
-const REDEMPTION_PRIORITY_BY_TYPE: Record<RedemptionItemType, number> = {
-  wrong_high_conf: 3,
-  wrong: 2,
-  low_conf_correct: 1,
-}
 const CHALLENGE_QUESTION_COLUMNS = `
   id,
   challenge_id,
@@ -206,12 +200,6 @@ export async function removeRedemptionItems(
   if (itemsToRemove.length === 0) {
     return
   }
-
-  const idsToRemove = itemsToRemove.map((item) => {
-    // Construct ID based on user_id, question_id, challenge_id
-    // We need to fetch the actual DB IDs
-    return item.questionId
-  })
 
   // Remove by user_id + question_id + challenge_id
   for (const item of itemsToRemove) {

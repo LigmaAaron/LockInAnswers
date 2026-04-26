@@ -3,7 +3,7 @@
  * Handles completed challenge runs and per-question results
  */
 
-import type { ChallengeAttemptDB, AttemptAnswerDB, ChallengeRun, ChallengeAnswerResult, SessionAnswer } from '../types/models'
+import type { AttemptAnswerDB, ChallengeRun, ChallengeAnswerResult } from '../types/models'
 import { supabase } from './supabase'
 
 const CHALLENGE_QUESTION_COLUMNS = `
@@ -25,14 +25,11 @@ const CHALLENGE_QUESTION_COLUMNS = `
 export async function saveAttempt(
   userId: string,
   challengeId: string,
-  userName: string,
-  challengeTitle: string,
   score: number,
   correct: number,
   total: number,
   averageConfidence: number,
   confidenceAccuracy: number,
-  answers: SessionAnswer[],
   answerDetails: Array<{
     questionId: string
     selectedIndex: number
