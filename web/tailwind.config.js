@@ -1,0 +1,73 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  darkMode: "class",
+  theme: {
+    extend: {
+      "colors": {
+          "background": "#111111",
+          "error": "#ef4444",
+          "error-container": "#5a1b1b",
+          "inverse-on-surface": "#252832",
+          "inverse-primary": "#2e5bff",
+          "inverse-surface": "#e2e2e8",
+          "on-background": "#e2e2e8",
+          "on-error": "#ffffff",
+          "on-error-container": "#ffe4e4",
+          "on-primary": "#ffffff",
+          "on-primary-container": "#ffffff",
+          "on-primary-fixed": "#e8eeff",
+          "on-primary-fixed-variant": "#c8d6ff",
+          "on-secondary": "#0f1118",
+          "on-secondary-container": "#e2e2e8",
+          "on-secondary-fixed": "#e2e2e8",
+          "on-secondary-fixed-variant": "#c4c5d9",
+          "on-surface": "#e2e2e8",
+          "on-surface-variant": "#c4c5d9",
+          "on-tertiary": "#ffffff",
+          "on-tertiary-container": "#d8fff1",
+          "on-tertiary-fixed": "#d8fff1",
+          "on-tertiary-fixed-variant": "#a7f3d0",
+          "outline": "#434656",
+          "outline-variant": "#434656",
+          "primary": "#2e5bff",
+          "primary-container": "#2e5bff",
+          "primary-fixed": "#2e5bff",
+          "primary-fixed-dim": "#2e5bff",
+          "secondary": "#c4c5d9",
+          "secondary-container": "#1c1c1c",
+          "secondary-fixed": "#c4c5d9",
+          "secondary-fixed-dim": "#c4c5d9",
+          "surface": "#111111",
+          "surface-bright": "#303030",
+          "surface-container": "#1c1c1c",
+          "surface-container-high": "#222222",
+          "surface-container-highest": "#2a2a2a",
+          "surface-container-low": "#171717",
+          "surface-container-lowest": "#111111",
+          "surface-dim": "#0d0d0d",
+          "surface-tint": "#2e5bff",
+          "surface-variant": "#1f1f1f",
+          "tertiary": "#10b981",
+          "tertiary-container": "#065f46",
+          "tertiary-fixed": "#10b981",
+          "tertiary-fixed-dim": "#10b981"
+      },
+      "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+      },
+      "fontFamily": {
+          "headline": ["Lexend", "sans-serif"],
+          "body": ["Lexend", "sans-serif"],
+          "label": ["Lexend", "sans-serif"]
+      }
+    },
+  },
+  plugins: [],
+}
